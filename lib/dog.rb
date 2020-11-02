@@ -76,22 +76,28 @@ class Dog
     Dog.new(id: result[0], name: result[1], breed: result[2])
   end
   
-      def self.find_or_create_by(hash)
-        sql = <<-SQL 
-        SELECT * FROM dogs
-        WHERE name = ? AND breed = ?
-        SQL
+  def self.find_or_create_by(hash)
+    sql = <<-SQL 
+      SELECT * FROM dogs
+      WHERE name = ? AND breed = ?
+    SQL
 
-        data = DB[:conn].execute(sql, hash[:name], hash[:breed])
+    data = DB[:conn].execute(sql, hash[:name], hash[:breed])
 
-        if data == []
-            self.create(hash)
-        else
-            self.find_by_id(data[0][0])
-        end
-
+    if data == []
+      self.create(hash)
+    else
+      self.find_by_id(data[0][0])
     end
+  end
     
-    
+  def update
+    sql = <<-SQL 
+      UPDATE dogs SET name = ?, breed = ?  
+      WHERE id = ?
+    SQL
   
+    DB[:conn].execute(sql, self.name, self.breed, self.id)
+    self
+  end
 end

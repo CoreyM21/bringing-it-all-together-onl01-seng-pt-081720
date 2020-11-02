@@ -18,16 +18,18 @@ class Dog
       breed TEXT);
     SQL
   
-      DB[:conn].execute(sql)
-    end
+    DB[:conn].execute(sql)
+  end
   
-    def self.drop_table
-      sql = <<-SQL 
-      DROP TABLE dogs
-      SQL
+  def self.drop_table
+    sql = <<-SQL 
+     DROP TABLE dogs
+    SQL
   
-      DB[:conn].execute(sql)
-    end
+    DB[:conn].execute(sql)
+  end
+  
+  
     
     
   
